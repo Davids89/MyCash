@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MyCash</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!--RESUMEN LAYOUT-->
+    <string name="more">+</string>
+    <string name="less">-</string>
+
+    <!--ADD MONEY LAYOUT-->
+    <string name="add">Añadir</string>
+    <string name="add_label_1">Añade tu dinero</string>
+
+    <!--MENU-->
+    <string name="home">Home</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">500€</string>
+    <string name="title_activity_money">MoneyActivity</string>
+</resources>

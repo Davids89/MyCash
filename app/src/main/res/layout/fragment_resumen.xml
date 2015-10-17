@@ -1,0 +1,45 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="luque.david.mycash.ResumenFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="50sp"
+        android:id="@+id/resumen_value"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:text="@string/more"
+            android:id="@+id/more"
+            android:textSize="50sp"
+            android:layout_marginEnd="80dp"
+            />
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:text="@string/less"
+            android:id="@+id/less"
+            android:textSize="50sp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
