@@ -1,6 +1,7 @@
 package luque.david.mycash;
 
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -72,6 +73,7 @@ public class ResumenFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .replace(R.id.container, new AddMoneyFragment())
                         .addToBackStack(null).commit();
             }
@@ -81,6 +83,7 @@ public class ResumenFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .replace(R.id.container, new SubtractMoneyFragment())
                         .addToBackStack(null).commit();
             }
