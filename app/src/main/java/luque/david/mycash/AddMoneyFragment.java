@@ -49,7 +49,15 @@ public class AddMoneyFragment extends Fragment {
                 Snackbar.make(view, "Dinero añadido con exito", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                getFragmentManager().popBackStack();
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                getFragmentManager().beginTransaction()
+                                        .replace(R.id.container, new ResumenFragment()).commit();
+                            }
+                        },
+                        500);
+
             }
         });
 

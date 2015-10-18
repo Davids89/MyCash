@@ -3,6 +3,7 @@ package luque.david.mycash;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,17 @@ public class SubtractMoneyFragment extends Fragment {
                 newcash.put("userID", "david");
                 newcash.saveInBackground();
 
-                getFragmentManager().popBackStack();
+                Snackbar.make(view, "Dinero restado con exito", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                getFragmentManager().beginTransaction()
+                                        .replace(R.id.container, new ResumenFragment()).commit();
+                            }
+                        },
+                        500);
             }
         });
 
