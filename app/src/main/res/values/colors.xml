@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="redToolbar">#F44336</color>
     <color name="redToolbarDark">#D32F2F</color>
+    <color name="greenButton">#43A047</color>
 </resources>
