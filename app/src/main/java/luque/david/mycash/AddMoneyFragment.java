@@ -7,12 +7,16 @@ import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.parse.ParseObject;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 
 /**
@@ -34,6 +38,22 @@ public class AddMoneyFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_add_money, container, false);
 
         Button addButton = (Button) rootView.findViewById(R.id.add_button);
+
+        //spinner
+        Spinner categoriesSpinner = (Spinner) rootView.findViewById(R.id.categories_spinner);
+
+        Bundle args = getArguments();
+        ArrayList<String> categories = args.getStringArrayList("CATEGORIAS");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                categories
+        );
+
+        categoriesSpinner.setAdapter(adapter);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override

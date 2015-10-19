@@ -29,6 +29,7 @@ public class ResumenFragment extends Fragment {
     Integer total = 0;
     TextView valueTextView;
     ArrayList<String> Categories = new ArrayList<String>();
+    Bundle args = new Bundle();
 
 
     public ResumenFragment() {
@@ -63,9 +64,16 @@ public class ResumenFragment extends Fragment {
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Fragment addFragment = new AddMoneyFragment();
+
+                args.putStringArrayList("CATEGORIAS", Categories);
+
+                addFragment.setArguments(args);
+
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, new AddMoneyFragment())
+                        .replace(R.id.container, addFragment)
                         .addToBackStack(null).commit();
             }
         });
@@ -73,9 +81,16 @@ public class ResumenFragment extends Fragment {
         lessButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Fragment subtractFragment = new SubtractMoneyFragment();
+
+                args.putStringArrayList("CATEGORIAS", Categories);
+
+                subtractFragment.setArguments(args);
+
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, new SubtractMoneyFragment())
+                        .replace(R.id.container, subtractFragment)
                         .addToBackStack(null).commit();
             }
         });

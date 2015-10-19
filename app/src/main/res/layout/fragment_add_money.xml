@@ -13,6 +13,12 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"/>
 
+    <Spinner
+        android:id="@+id/categories_spinner"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"></Spinner>
+
     <Button
         style="?android:attr/buttonBarButtonStyle"
         android:id="@+id/add_button"
