@@ -41,7 +41,7 @@ public class SubtractMoneyFragment extends Fragment {
 
                 Integer value = Integer.valueOf(text.getText().toString()) * -1;
 
-                ParseObject newcash = new ParseObject("UserCash");
+                ParseObject newcash = new ParseObject("Cash");
                 newcash.put("value", value);
                 newcash.put("currency", "EUR");
                 newcash.put("userID", "david");

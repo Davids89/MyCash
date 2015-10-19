@@ -40,7 +40,7 @@ public class AddMoneyFragment extends Fragment {
             public void onClick(View view) {
                 TextView cash = (TextView) rootView.findViewById(R.id.cash_textview);
 
-                ParseObject newcash = new ParseObject("UserCash");
+                ParseObject newcash = new ParseObject("Cash");
                 newcash.put("value", Integer.valueOf(cash.getText().toString()));
                 newcash.put("currency", "EUR");
                 newcash.put("userID", "david");

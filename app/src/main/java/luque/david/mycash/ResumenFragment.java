@@ -17,6 +17,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +28,7 @@ public class ResumenFragment extends Fragment {
 
     Integer total = 0;
     TextView valueTextView;
+    ArrayList<String> Categories = new ArrayList<String>();
 
 
     public ResumenFragment() {
@@ -49,22 +51,11 @@ public class ResumenFragment extends Fragment {
 
         total = 0; //when reenter in this fragment we have to reinit the value
 
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("UserCash");
-        query.whereEqualTo("userID", "david");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (objects != null) {
-                    for (ParseObject object : objects) {
-                        total += object.getInt("value");
-                    }
-                }
+        //Resume the user status
+        Resume();
 
-                valueTextView.setText(String.valueOf(total) + "€");
-            }
-        });
-
-        //initial value
+        //load categories
+        LoadCategories();
 
         Button moreButton = (Button) rootView.findViewById(R.id.more);
         Button lessButton = (Button) rootView.findViewById(R.id.less);
@@ -91,6 +82,41 @@ public class ResumenFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    public void Resume(){
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Cash");
+        query.whereEqualTo("userID", "david");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (objects != null) {
+                    for (ParseObject object : objects) {
+                        total += object.getInt("value");
+                    }
+                }
+
+                valueTextView.setText(String.valueOf(total) + "€");
+            }
+        });
+    }
+
+    public void LoadCategories(){
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Categories");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if(objects != null){
+                    for(ParseObject object: objects){
+                        Categories.add(object.getString("name"));
+                    }
+
+                    for(String category : Categories){
+                        Log.d("CATEGORY", category);
+                    }
+                }
+            }
+        });
     }
 
 
