@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -24,6 +25,9 @@ import java.util.ArrayList;
  */
 public class SubtractMoneyFragment extends Fragment {
 
+    private Spinner spinner;
+    private String categorySelected;
+
 
     public SubtractMoneyFragment() {
         // Required empty public constructor
@@ -40,7 +44,7 @@ public class SubtractMoneyFragment extends Fragment {
 
         //Spinner
 
-        Spinner spinner = (Spinner) rootView.findViewById(R.id.categories_spinner_subtract);
+        spinner = (Spinner) rootView.findViewById(R.id.categories_spinner_subtract);
 
         Bundle args = getArguments();
         ArrayList<String> categories = args.getStringArrayList("CATEGORIAS");
@@ -52,6 +56,20 @@ public class SubtractMoneyFragment extends Fragment {
         );
 
         spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                categorySelected = spinner.getSelectedItem().toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -66,6 +84,7 @@ public class SubtractMoneyFragment extends Fragment {
                 newcash.put("value", value);
                 newcash.put("currency", "EUR");
                 newcash.put("userID", "david");
+                newcash.put("category", categorySelected);
                 newcash.saveInBackground();
 
                 Snackbar.make(view, "Dinero restado con exito", Snackbar.LENGTH_LONG)

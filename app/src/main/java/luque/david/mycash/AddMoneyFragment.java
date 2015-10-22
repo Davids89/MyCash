@@ -1,12 +1,14 @@
 package luque.david.mycash;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -22,7 +24,10 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddMoneyFragment extends Fragment {
+public class AddMoneyFragment extends Fragment{
+
+    private Spinner categoriesSpinner;
+    private String categorySelected;
 
 
     public AddMoneyFragment() {
@@ -40,10 +45,10 @@ public class AddMoneyFragment extends Fragment {
         Button addButton = (Button) rootView.findViewById(R.id.add_button);
 
         //spinner
-        Spinner categoriesSpinner = (Spinner) rootView.findViewById(R.id.categories_spinner);
+        categoriesSpinner = (Spinner) rootView.findViewById(R.id.categories_spinner);
 
         Bundle args = getArguments();
-        ArrayList<String> categories = args.getStringArrayList("CATEGORIAS");
+        final ArrayList<String> categories = args.getStringArrayList("CATEGORIAS");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -52,6 +57,20 @@ public class AddMoneyFragment extends Fragment {
         );
 
         categoriesSpinner.setAdapter(adapter);
+
+        categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                categorySelected = categoriesSpinner.getSelectedItem().toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -64,6 +83,7 @@ public class AddMoneyFragment extends Fragment {
                 newcash.put("value", Integer.valueOf(cash.getText().toString()));
                 newcash.put("currency", "EUR");
                 newcash.put("userID", "david");
+                newcash.put("category", categorySelected);
                 newcash.saveInBackground();
 
                 Snackbar.make(view, "Dinero añadido con exito", Snackbar.LENGTH_LONG)
@@ -83,8 +103,5 @@ public class AddMoneyFragment extends Fragment {
 
         return rootView;
     }
-
-
-
 
 }
