@@ -5,9 +5,9 @@
         <item android:id="@+id/home"
             android:icon="@android:drawable/ic_menu_camera"
             android:title="@string/home" />
-        <item android:id="@+id/nav_gallery"
+        <item android:id="@+id/operations"
             android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="@string/operations" />
     </group>
 
     <!--<item android:title="Communicate">

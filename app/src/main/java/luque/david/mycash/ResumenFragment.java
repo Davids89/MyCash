@@ -125,10 +125,6 @@ public class ResumenFragment extends Fragment {
                     for(ParseObject object: objects){
                         Categories.add(object.getString("name"));
                     }
-
-                    for(String category : Categories){
-                        Log.d("CATEGORY", category);
-                    }
                 }
             }
         });

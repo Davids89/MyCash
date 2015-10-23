@@ -80,7 +80,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.home) {
-            // Handle the camera action
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, new ResumenFragment()).commit();
+        }else if(id == R.id.operations){
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, new OperationsFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

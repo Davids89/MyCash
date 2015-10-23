@@ -16,6 +16,7 @@
 
     <!--MENU-->
     <string name="home">Home</string>
+    <string name="operations">Operaciones</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">500€</string>

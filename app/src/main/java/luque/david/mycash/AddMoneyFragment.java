@@ -28,6 +28,7 @@ public class AddMoneyFragment extends Fragment{
 
     private Spinner categoriesSpinner;
     private String categorySelected;
+    ArrayList<String> categories;
 
 
     public AddMoneyFragment() {
@@ -47,32 +48,9 @@ public class AddMoneyFragment extends Fragment{
         //spinner
         categoriesSpinner = (Spinner) rootView.findViewById(R.id.categories_spinner);
 
-        Bundle args = getArguments();
-        final ArrayList<String> categories = args.getStringArrayList("CATEGORIAS");
+        LoadCategories();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                categories
-        );
-
-        categoriesSpinner.setAdapter(adapter);
-
-        categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                categorySelected = categoriesSpinner.getSelectedItem().toString();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        SetUpSpinner();
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +80,36 @@ public class AddMoneyFragment extends Fragment{
         });
 
         return rootView;
+    }
+
+    public void LoadCategories(){
+        Bundle args = getArguments();
+        categories = args.getStringArrayList("CATEGORIAS");
+    }
+
+    public void SetUpSpinner(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                categories
+        );
+
+        categoriesSpinner.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                categorySelected = categoriesSpinner.getSelectedItem().toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
 }

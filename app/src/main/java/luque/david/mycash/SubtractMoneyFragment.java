@@ -27,6 +27,7 @@ public class SubtractMoneyFragment extends Fragment {
 
     private Spinner spinner;
     private String categorySelected;
+    ArrayList<String> categories;
 
 
     public SubtractMoneyFragment() {
@@ -47,31 +48,9 @@ public class SubtractMoneyFragment extends Fragment {
         spinner = (Spinner) rootView.findViewById(R.id.categories_spinner_subtract);
 
         Bundle args = getArguments();
-        ArrayList<String> categories = args.getStringArrayList("CATEGORIAS");
+        categories = args.getStringArrayList("CATEGORIAS");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                categories
-        );
-
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                categorySelected = spinner.getSelectedItem().toString();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        SetUpSpinner();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +81,32 @@ public class SubtractMoneyFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    public void SetUpSpinner(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                categories
+        );
+
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                categorySelected = spinner.getSelectedItem().toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
 
