@@ -1,14 +1,17 @@
-package luque.david.mycash;
+package luque.david.mycash.Controllers;
 
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.parse.FindCallback;
@@ -19,6 +22,10 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import luque.david.mycash.Adapters.CashAdapter;
+import luque.david.mycash.Models.Cash;
+import luque.david.mycash.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +35,10 @@ public class OperationsFragment extends Fragment {
     ArrayList<String> Categories = new ArrayList<String>();
     private Spinner categoriesSpinner;
     String categorySelected;
+
+    private RecyclerView recycler;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager manager;
 
 
     public OperationsFragment() {
@@ -44,6 +55,23 @@ public class OperationsFragment extends Fragment {
         categoriesSpinner = (Spinner) rootView.findViewById(R.id.spinner_operations);
 
         LoadCategories();
+
+        //Recycler
+
+        List items = new ArrayList();
+
+        items.add(new Cash(20, "EUR", "categoria", "david"));
+
+        //obtenemos el recycler
+
+        recycler = (RecyclerView) rootView.findViewById(R.id.reciclador);
+        recycler.setHasFixedSize(true);
+
+        manager = new LinearLayoutManager(rootView.getContext());
+        recycler.setLayoutManager(manager);
+
+        adapter = new CashAdapter(items);
+        recycler.setAdapter(adapter);
 
         // Inflate the layout for this fragment
         return rootView;
