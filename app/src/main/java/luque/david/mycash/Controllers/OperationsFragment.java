@@ -1,4 +1,4 @@
-package luque.david.mycash;
+package luque.david.mycash.Controllers;
 
 
 import android.os.Bundle;
@@ -24,6 +24,7 @@ import java.util.List;
 
 import luque.david.mycash.Adapters.CashAdapter;
 import luque.david.mycash.Models.Cash;
+import luque.david.mycash.R;
 
 
 /**

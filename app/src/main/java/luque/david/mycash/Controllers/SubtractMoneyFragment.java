@@ -1,4 +1,4 @@
-package luque.david.mycash;
+package luque.david.mycash.Controllers;
 
 
 import android.os.Bundle;
@@ -15,9 +15,10 @@ import android.widget.TextView;
 
 import com.parse.ParseObject;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
+import luque.david.mycash.Controllers.ResumenFragment;
+import luque.david.mycash.R;
 
 
 /**
