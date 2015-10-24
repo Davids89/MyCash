@@ -1,5 +1,6 @@
 package luque.david.mycash.Controllers;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,6 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import luque.david.mycash.Controllers.OperationsFragment;
 import luque.david.mycash.Controllers.ResumenFragment;
@@ -25,10 +34,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         //init resumen fragment
-        if(savedInstanceState == null){
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new ResumenFragment()).commit();
-        }
+        LoadCategoriesAndLoadFragment();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,5 +94,34 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void LoadCategoriesAndLoadFragment(){
+
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Categories");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+
+                ArrayList<String> Categories = new ArrayList<String>();
+
+                if (objects != null) {
+                    for (ParseObject object : objects) {
+                        Categories.add(object.getString("name"));
+                    }
+                }
+
+                Bundle args = new Bundle();
+                Fragment resumen = new ResumenFragment();
+
+                args.putStringArrayList("CATEGORIAS",Categories);
+
+                resumen.setArguments(args);
+
+                getFragmentManager().beginTransaction()
+                        .add(R.id.container, resumen).commit();
+
+            }
+        });
     }
 }
