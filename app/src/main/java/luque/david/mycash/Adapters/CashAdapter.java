@@ -47,6 +47,11 @@ public class CashAdapter extends RecyclerView.Adapter<CashAdapter.CashAdapterHol
 
     @Override
     public void onBindViewHolder(CashAdapter.CashAdapterHolder holder, int position) {
-        holder.value.setText(mList.get(position).getValue().toString());
+
+        if(mList.get(position).getValue() != null){
+            holder.value.setText(mList.get(position).getValue().toString());
+        }else{
+            holder.value.setText("No hay resultados");
+        }
     }
 }

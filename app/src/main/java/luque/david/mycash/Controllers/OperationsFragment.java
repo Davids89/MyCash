@@ -123,7 +123,7 @@ public class OperationsFragment extends Fragment {
                             Log.d("ITEMS", String.valueOf(items.size()));
 
                             if(items.size() == 0){
-                                //items.add()
+                                items.add(new Cash());
                             }
 
                             ConfigRecyclerView(items);

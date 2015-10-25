@@ -13,6 +13,10 @@ public class Cash {
     private String mCategory;
     private String mUserID;
 
+    public Cash(){
+
+    }
+
     public Cash(Integer value, String currency, String category, String userID){
         //mDate = date;
         mValue = value;
