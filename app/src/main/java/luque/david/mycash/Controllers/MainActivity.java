@@ -34,7 +34,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         //init resumen fragment
-        LoadCategoriesAndLoadFragment();
+        if(savedInstanceState == null){
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, new ResumenFragment()).commit();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -85,43 +88,16 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.home) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.container, new ResumenFragment()).commit();
+                    .replace(R.id.container, new ResumenFragment())
+                    .addToBackStack(null).commit();
         }else if(id == R.id.operations){
             getFragmentManager().beginTransaction()
-                    .replace(R.id.container, new OperationsFragment()).commit();
+                    .replace(R.id.container, new OperationsFragment())
+                    .addToBackStack(null).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void LoadCategoriesAndLoadFragment(){
-
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Categories");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-
-                ArrayList<String> Categories = new ArrayList<String>();
-
-                if (objects != null) {
-                    for (ParseObject object : objects) {
-                        Categories.add(object.getString("name"));
-                    }
-                }
-
-                Bundle args = new Bundle();
-                Fragment resumen = new ResumenFragment();
-
-                args.putStringArrayList("CATEGORIAS",Categories);
-
-                resumen.setArguments(args);
-
-                getFragmentManager().beginTransaction()
-                        .add(R.id.container, resumen).commit();
-
-            }
-        });
     }
 }

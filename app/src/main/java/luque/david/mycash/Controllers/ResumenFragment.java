@@ -4,6 +4,7 @@ package luque.david.mycash.Controllers;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class ResumenFragment extends Fragment {
 
     Integer total = 0;
     TextView valueTextView;
-    ArrayList<String> categories;
+    ArrayList<String> Categories = new ArrayList<String>();
     Bundle args = new Bundle();
 
 
@@ -67,7 +68,7 @@ public class ResumenFragment extends Fragment {
 
                 Fragment addFragment = new AddMoneyFragment();
 
-                args.putStringArrayList("CATEGORIAS", categories);
+                args.putStringArrayList("CATEGORIAS", Categories);
 
                 addFragment.setArguments(args);
 
@@ -84,7 +85,7 @@ public class ResumenFragment extends Fragment {
 
                 Fragment subtractFragment = new SubtractMoneyFragment();
 
-                args.putStringArrayList("CATEGORIAS", categories);
+                args.putStringArrayList("CATEGORIAS", Categories);
 
                 subtractFragment.setArguments(args);
 
@@ -117,8 +118,17 @@ public class ResumenFragment extends Fragment {
     }
 
     public void LoadCategories(){
-        Bundle args = getArguments();
-        categories = args.getStringArrayList("CATEGORIAS");
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Categories");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (objects != null) {
+                    for (ParseObject object : objects) {
+                        Categories.add(object.getString("name"));
+                    }
+                }
+            }
+        });
     }
 
 

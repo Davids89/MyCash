@@ -7,6 +7,7 @@
 
     <EditText
         android:id="@+id/cash_textview"
+        android:inputType="number"
         android:labelFor="@string/add_label_1"
         android:layout_width="300dp"
         android:layout_height="50dp"
