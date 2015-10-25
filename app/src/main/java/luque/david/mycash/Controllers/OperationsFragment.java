@@ -35,6 +35,7 @@ public class OperationsFragment extends Fragment {
     ArrayList<String> Categories = new ArrayList<String>();
     private Spinner categoriesSpinner;
     String categorySelected;
+    View rootView;
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
@@ -50,19 +51,9 @@ public class OperationsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_operations, container, false);
+        rootView = inflater.inflate(R.layout.fragment_operations, container, false);
 
         categoriesSpinner = (Spinner) rootView.findViewById(R.id.spinner_operations);
-
-        LoadCategories();
-
-        //Recycler
-
-        List items = new ArrayList();
-
-        items.add(new Cash(20, "EUR", "categoria", "david"));
-
-        //obtenemos el recycler
 
         recycler = (RecyclerView) rootView.findViewById(R.id.reciclador);
         recycler.setHasFixedSize(true);
@@ -70,8 +61,7 @@ public class OperationsFragment extends Fragment {
         manager = new LinearLayoutManager(rootView.getContext());
         recycler.setLayoutManager(manager);
 
-        adapter = new CashAdapter(items);
-        recycler.setAdapter(adapter);
+        LoadCategories();
 
         // Inflate the layout for this fragment
         return rootView;
@@ -82,8 +72,8 @@ public class OperationsFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                if(objects != null){
-                    for(ParseObject object: objects) {
+                if (objects != null) {
+                    for (ParseObject object : objects) {
                         Categories.add(object.getString("name"));
                     }
                 }
@@ -95,12 +85,6 @@ public class OperationsFragment extends Fragment {
     }
 
     public void SetUpSpinner(){
-
-        Log.d("Entra", "ENTRA");
-
-        for(String a: Categories){
-            Log.d("Valor",a);
-        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -117,6 +101,37 @@ public class OperationsFragment extends Fragment {
 
                 categorySelected = categoriesSpinner.getSelectedItem().toString();
 
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Cash");
+                query.setLimit(10);
+                query.whereEqualTo("userID", "david");
+                query.whereEqualTo("category", categorySelected);
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, ParseException e) {
+
+                        List items = new ArrayList();
+
+                        if (objects != null) {
+                            for(ParseObject object: objects){
+                                Log.d("VALOR", String.valueOf(object.getInt("value")));
+                                items.add(new Cash(object.getInt("value"),
+                                        object.getString("currency"),
+                                        object.getString("category"),
+                                        object.getString("userID")));
+                            }
+
+                            Log.d("ITEMS", String.valueOf(items.size()));
+
+                            if(items.size() == 0){
+                                //items.add()
+                            }
+
+                            ConfigRecyclerView(items);
+
+                        }
+                    }
+                });
+
             }
 
             @Override
@@ -124,6 +139,14 @@ public class OperationsFragment extends Fragment {
 
             }
         });
+    }
+
+    public void ConfigRecyclerView(List items){
+
+        //obtenemos el recycler
+
+        adapter = new CashAdapter(items);
+        recycler.setAdapter(adapter);
     }
 
 
