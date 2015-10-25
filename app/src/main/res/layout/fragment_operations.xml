@@ -4,12 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="luque.david.mycash.OperationsFragment">
+    tools:context="luque.david.mycash.Controllers.OperationsFragment">
 
     <Spinner
         android:id="@+id/spinner_operations"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"></Spinner>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/reciclador"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="3dp"
+        android:scrollbars="vertical" />
 
 </LinearLayout>

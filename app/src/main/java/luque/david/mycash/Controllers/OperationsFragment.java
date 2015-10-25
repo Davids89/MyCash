@@ -1,14 +1,17 @@
-package luque.david.mycash;
+package luque.david.mycash.Controllers;
 
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.parse.FindCallback;
@@ -19,6 +22,10 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import luque.david.mycash.Adapters.CashAdapter;
+import luque.david.mycash.Models.Cash;
+import luque.david.mycash.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +35,11 @@ public class OperationsFragment extends Fragment {
     ArrayList<String> Categories = new ArrayList<String>();
     private Spinner categoriesSpinner;
     String categorySelected;
+    View rootView;
+
+    private RecyclerView recycler;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager manager;
 
 
     public OperationsFragment() {
@@ -39,9 +51,15 @@ public class OperationsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_operations, container, false);
+        rootView = inflater.inflate(R.layout.fragment_operations, container, false);
 
         categoriesSpinner = (Spinner) rootView.findViewById(R.id.spinner_operations);
+
+        recycler = (RecyclerView) rootView.findViewById(R.id.reciclador);
+        recycler.setHasFixedSize(true);
+
+        manager = new LinearLayoutManager(rootView.getContext());
+        recycler.setLayoutManager(manager);
 
         LoadCategories();
 
@@ -54,8 +72,8 @@ public class OperationsFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                if(objects != null){
-                    for(ParseObject object: objects) {
+                if (objects != null) {
+                    for (ParseObject object : objects) {
                         Categories.add(object.getString("name"));
                     }
                 }
@@ -67,12 +85,6 @@ public class OperationsFragment extends Fragment {
     }
 
     public void SetUpSpinner(){
-
-        Log.d("Entra", "ENTRA");
-
-        for(String a: Categories){
-            Log.d("Valor",a);
-        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -89,6 +101,37 @@ public class OperationsFragment extends Fragment {
 
                 categorySelected = categoriesSpinner.getSelectedItem().toString();
 
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Cash");
+                query.setLimit(10);
+                query.whereEqualTo("userID", "david");
+                query.whereEqualTo("category", categorySelected);
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, ParseException e) {
+
+                        List items = new ArrayList();
+
+                        if (objects != null) {
+                            for(ParseObject object: objects){
+                                Log.d("VALOR", String.valueOf(object.getInt("value")));
+                                items.add(new Cash(object.getInt("value"),
+                                        object.getString("currency"),
+                                        object.getString("category"),
+                                        object.getString("userID")));
+                            }
+
+                            Log.d("ITEMS", String.valueOf(items.size()));
+
+                            if(items.size() == 0){
+                                items.add(new Cash());
+                            }
+
+                            ConfigRecyclerView(items);
+
+                        }
+                    }
+                });
+
             }
 
             @Override
@@ -96,6 +139,14 @@ public class OperationsFragment extends Fragment {
 
             }
         });
+    }
+
+    public void ConfigRecyclerView(List items){
+
+        //obtenemos el recycler
+
+        adapter = new CashAdapter(items);
+        recycler.setAdapter(adapter);
     }
 
 
