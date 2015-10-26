@@ -5,20 +5,41 @@
     android:orientation="vertical"
     tools:context="luque.david.mycash.Controllers.SubtractMoneyFragment">
 
-    <EditText
-        android:id="@+id/cash_subtract_textview"
-        android:inputType="number"
-        android:labelFor="@string/add_label_1"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:hint="Cantidad"
+            android:id="@+id/cash_subtract_textview"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp">
+
+
+        <EditText
+            android:hint="Asunto"
+            android:id="@+id/subject_subtract"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.design.widget.TextInputLayout>
 
     <Spinner
         android:id="@+id/categories_spinner_subtract"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"></Spinner>
+        android:layout_height="50dp"/>
 
     <Button
         style="?android:attr/buttonBarButtonStyle"
