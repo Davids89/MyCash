@@ -56,9 +56,6 @@ public class ResumenFragment extends Fragment {
         //Resume the user status
         Resume();
 
-        //load categories
-        LoadCategories();
-
         Button moreButton = (Button) rootView.findViewById(R.id.more);
         Button lessButton = (Button) rootView.findViewById(R.id.less);
 
@@ -66,15 +63,9 @@ public class ResumenFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Fragment addFragment = new AddMoneyFragment();
-
-                args.putStringArrayList("CATEGORIAS", Categories);
-
-                addFragment.setArguments(args);
-
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, addFragment)
+                        .replace(R.id.container, new AddMoneyFragment())
                         .addToBackStack(null).commit();
             }
         });
@@ -83,15 +74,9 @@ public class ResumenFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Fragment subtractFragment = new SubtractMoneyFragment();
-
-                args.putStringArrayList("CATEGORIAS", Categories);
-
-                subtractFragment.setArguments(args);
-
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, subtractFragment)
+                        .replace(R.id.container, new SubtractMoneyFragment())
                         .addToBackStack(null).commit();
             }
         });
@@ -116,20 +101,5 @@ public class ResumenFragment extends Fragment {
             }
         });
     }
-
-    public void LoadCategories(){
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Categories");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (objects != null) {
-                    for (ParseObject object : objects) {
-                        Categories.add(object.getString("name"));
-                    }
-                }
-            }
-        });
-    }
-
 
 }

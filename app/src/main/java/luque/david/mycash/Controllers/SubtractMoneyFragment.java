@@ -48,9 +48,6 @@ public class SubtractMoneyFragment extends Fragment {
 
         spinner = (Spinner) rootView.findViewById(R.id.categories_spinner_subtract);
 
-        Bundle args = getArguments();
-        categories = args.getStringArrayList("CATEGORIAS");
-
         SetUpSpinner();
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +85,7 @@ public class SubtractMoneyFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
-                categories
+                getResources().getStringArray(R.array.categories)
         );
 
         spinner.setAdapter(adapter);

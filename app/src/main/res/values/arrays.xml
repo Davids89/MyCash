@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories">
+        <item>Ropa</item>
+        <item>Animales</item>
+        <item>Servicios</item>
+        <item>Salud</item>
+        <item>Transporte</item>
+        <item>Comida</item>
+        <item>Coche</item>
+        <item>Restaurantes</item>
+        <item>Ropa</item>
+    </string-array>
+</resources>

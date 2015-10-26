@@ -27,7 +27,6 @@ public class AddMoneyFragment extends Fragment{
 
     private Spinner categoriesSpinner;
     private String categorySelected;
-    ArrayList<String> categories;
 
 
     public AddMoneyFragment() {
@@ -46,8 +45,6 @@ public class AddMoneyFragment extends Fragment{
 
         //spinner
         categoriesSpinner = (Spinner) rootView.findViewById(R.id.categories_spinner);
-
-        LoadCategories();
 
         SetUpSpinner();
 
@@ -81,16 +78,11 @@ public class AddMoneyFragment extends Fragment{
         return rootView;
     }
 
-    public void LoadCategories(){
-        Bundle args = getArguments();
-        categories = args.getStringArrayList("CATEGORIAS");
-    }
-
     public void SetUpSpinner(){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
-                categories
+                getResources().getStringArray(R.array.categories)
         );
 
         categoriesSpinner.setAdapter(adapter);
