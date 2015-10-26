@@ -32,7 +32,6 @@ import luque.david.mycash.R;
  */
 public class OperationsFragment extends Fragment {
 
-    ArrayList<String> Categories = new ArrayList<String>();
     private Spinner categoriesSpinner;
     String categorySelected;
     View rootView;
@@ -55,33 +54,16 @@ public class OperationsFragment extends Fragment {
 
         categoriesSpinner = (Spinner) rootView.findViewById(R.id.spinner_operations);
 
+        SetUpSpinner();
+
         recycler = (RecyclerView) rootView.findViewById(R.id.reciclador);
         recycler.setHasFixedSize(true);
 
         manager = new LinearLayoutManager(rootView.getContext());
         recycler.setLayoutManager(manager);
 
-        LoadCategories();
-
         // Inflate the layout for this fragment
         return rootView;
-    }
-
-    public void LoadCategories(){
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Categories");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (objects != null) {
-                    for (ParseObject object : objects) {
-                        Categories.add(object.getString("name"));
-                    }
-                }
-
-                //se tiene que llamar aqui porque al ser asíncrona no se mostraba el item en el spinner
-                SetUpSpinner();
-            }
-        });
     }
 
     public void SetUpSpinner(){
@@ -89,7 +71,7 @@ public class OperationsFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
-                Categories
+                getResources().getStringArray(R.array.categories)
         );
 
         categoriesSpinner.setAdapter(adapter);

@@ -28,7 +28,6 @@ public class SubtractMoneyFragment extends Fragment {
 
     private Spinner spinner;
     private String categorySelected;
-    ArrayList<String> categories;
 
 
     public SubtractMoneyFragment() {
