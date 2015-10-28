@@ -1,4 +1,4 @@
-package luque.david.mycash.Controllers;
+package luque.david.mycash.Controllers.Fragments;
 
 
 import android.os.Bundle;
@@ -15,21 +15,20 @@ import android.widget.TextView;
 
 import com.parse.ParseObject;
 
-import java.util.ArrayList;
-
+import luque.david.mycash.Controllers.Fragments.ResumenFragment;
 import luque.david.mycash.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddMoneyFragment extends Fragment{
+public class SubtractMoneyFragment extends Fragment {
 
-    private Spinner categoriesSpinner;
+    private Spinner spinner;
     private String categorySelected;
 
 
-    public AddMoneyFragment() {
+    public SubtractMoneyFragment() {
         // Required empty public constructor
     }
 
@@ -37,30 +36,32 @@ public class AddMoneyFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-        final View rootView = inflater.inflate(R.layout.fragment_add_money, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_subtract_money, container, false);
 
-        Button addButton = (Button) rootView.findViewById(R.id.add_button);
+        Button button = (Button) rootView.findViewById(R.id.subtract_button);
 
-        //spinner
-        categoriesSpinner = (Spinner) rootView.findViewById(R.id.categories_spinner);
+        //Spinner
+
+        spinner = (Spinner) rootView.findViewById(R.id.categories_spinner_subtract);
 
         SetUpSpinner();
 
-        addButton.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView cash = (TextView) rootView.findViewById(R.id.cash_textview);
+                TextView text = (TextView) rootView.findViewById(R.id.cash_subtract_textview);
+
+                Integer value = Integer.valueOf(text.getText().toString()) * -1;
 
                 ParseObject newcash = new ParseObject("Cash");
-                newcash.put("value", Integer.valueOf(cash.getText().toString()));
+                newcash.put("value", value);
                 newcash.put("currency", "EUR");
                 newcash.put("userID", "david");
                 newcash.put("category", categorySelected);
                 newcash.saveInBackground();
 
-                Snackbar.make(view, "Dinero añadido con exito", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Dinero restado con exito", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
                 new android.os.Handler().postDelayed(
@@ -71,7 +72,6 @@ public class AddMoneyFragment extends Fragment{
                             }
                         },
                         500);
-
             }
         });
 
@@ -85,14 +85,13 @@ public class AddMoneyFragment extends Fragment{
                 getResources().getStringArray(R.array.categories)
         );
 
-        categoriesSpinner.setAdapter(adapter);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
-        categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                categorySelected = categoriesSpinner.getSelectedItem().toString();
+                categorySelected = spinner.getSelectedItem().toString();
 
             }
 
@@ -101,6 +100,9 @@ public class AddMoneyFragment extends Fragment{
 
             }
         });
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
+
 
 }

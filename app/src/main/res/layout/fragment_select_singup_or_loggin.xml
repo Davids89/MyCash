@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context="luque.david.mycash.Controllers.Fragments.SelectSingupOrLoggin">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_singup"
+        android:layout_width="200dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardBackgroundColor="#64B5F6"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="1dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <TextView
+            android:id="@+id/singup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:minWidth="88dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:singleLine="true"
+            android:text="@string/singup"
+            android:textColor="#000000"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_login"
+        android:layout_width="200dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/card_view_singup"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardBackgroundColor="#64B5F6"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="1dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:minWidth="88dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:text="@string/login"
+                android:textColor="#000000"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

@@ -1,6 +1,5 @@
-package luque.david.mycash.Controllers;
+package luque.david.mycash.Controllers.Activities;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,16 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import luque.david.mycash.Controllers.OperationsFragment;
-import luque.david.mycash.Controllers.ResumenFragment;
+import luque.david.mycash.Controllers.Fragments.OperationsFragment;
+import luque.david.mycash.Controllers.Fragments.ResumenFragment;
 import luque.david.mycash.R;
 
 public class MainActivity extends AppCompatActivity
