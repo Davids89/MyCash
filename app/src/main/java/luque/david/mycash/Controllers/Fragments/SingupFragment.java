@@ -1,6 +1,7 @@
 package luque.david.mycash.Controllers.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import luque.david.mycash.Controllers.Activities.MainActivity;
 import luque.david.mycash.R;
 
 /**
@@ -48,6 +50,10 @@ public class SingupFragment extends Fragment {
         password = (TextInputLayout) rootView.findViewById(R.id.textview_password);
         username = (TextInputLayout) rootView.findViewById(R.id.textview_username);
 
+        //TODO poner esto para los errores
+        /*mEmailInput.setErrorEnabled(false);
+        mEmailInput.setError("Cant be blank");*/
+
         singup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -64,11 +70,12 @@ public class SingupFragment extends Fragment {
                     @Override
                     public void done(ParseException e) {
 
-                        Log.d("LLEGA","");
-
                         if(e == null){
                             Snackbar.make(view, "Usuario registrado con éxito",
-                                    Snackbar.LENGTH_LONG).setAction("",null).show();;
+                                    Snackbar.LENGTH_LONG).setAction("",null).show();
+                            Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(myIntent);
+                            getActivity().finish();
                         }else{
                             Log.e("ERROR",e.toString());
                         }
