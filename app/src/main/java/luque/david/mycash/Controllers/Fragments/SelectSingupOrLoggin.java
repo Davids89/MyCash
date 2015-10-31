@@ -29,12 +29,21 @@ public class SelectSingupOrLoggin extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_select_singup_or_loggin, container, false);
 
         CardView singup = (CardView) rootView.findViewById(R.id.card_view_singup);
+        CardView login = (CardView) rootView.findViewById(R.id.card_view_login);
 
         singup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container_loggin, new SingupFragment()).commit();
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container_loggin, new LoginFragment()).commit();
             }
         });
 
