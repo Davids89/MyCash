@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import luque.david.mycash.Controllers.Fragments.ResumenFragment;
 import luque.david.mycash.R;
@@ -51,13 +52,14 @@ public class SubtractMoneyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 TextView text = (TextView) rootView.findViewById(R.id.cash_subtract_textview);
+                ParseUser user = ParseUser.getCurrentUser();
 
                 Integer value = Integer.valueOf(text.getText().toString()) * -1;
 
                 ParseObject newcash = new ParseObject("Cash");
                 newcash.put("value", value);
                 newcash.put("currency", "EUR");
-                newcash.put("userID", "david");
+                newcash.put("userID", String.valueOf( user.getObjectId() ));
                 newcash.put("category", categorySelected);
                 newcash.saveInBackground();
 

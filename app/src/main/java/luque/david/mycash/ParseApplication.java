@@ -3,6 +3,7 @@ package luque.david.mycash;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 
 /**
  * Created by David on 17/10/15.
@@ -17,5 +18,6 @@ public class ParseApplication extends Application {
 
         Parse.initialize(this, "2DTTY4bU8GjW1ppY9WtMR6NTctLI1xIJtRAbFHI6", "jf2AJUMKbPQbTMD6svRLFIFCNeBjzTnvq3C3eqEK");
 
+        ParseFacebookUtils.initialize(this);
     }
 }

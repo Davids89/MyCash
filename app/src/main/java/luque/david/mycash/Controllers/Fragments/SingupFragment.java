@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class SingupFragment extends Fragment {
     TextInputLayout email;
     TextInputLayout password;
     TextInputLayout username;
+    CardView singup;
 
 
     public SingupFragment() {
@@ -42,9 +44,9 @@ public class SingupFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View rootView = inflater.inflate(R.layout.fragment_singup, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_singup, container, false);
 
-        CardView singup = (CardView) rootView.findViewById(R.id.card_view_login);
+        singup = (CardView) rootView.findViewById(R.id.card_view_login);
 
         email = (TextInputLayout) rootView.findViewById(R.id.textview_email);
         password = (TextInputLayout) rootView.findViewById(R.id.textview_password);
@@ -71,11 +73,16 @@ public class SingupFragment extends Fragment {
                     public void done(ParseException e) {
 
                         if(e == null){
-                            Snackbar.make(view, "Usuario registrado con éxito",
-                                    Snackbar.LENGTH_LONG).setAction("",null).show();
-                            Intent myIntent = new Intent(getActivity(), MainActivity.class);
-                            startActivity(myIntent);
-                            getActivity().finish();
+
+                            if(validate(rootView)){
+                                Snackbar.make(view, "Usuario registrado con éxito",
+                                        Snackbar.LENGTH_LONG).setAction("",null).show();
+                                Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                                startActivity(myIntent);
+                                getActivity().finish();
+                            }else{
+                                onLoginFailed();
+                            }
                         }else{
                             Log.e("ERROR",e.toString());
                         }
@@ -88,5 +95,34 @@ public class SingupFragment extends Fragment {
         return rootView;
     }
 
+    public boolean validate(View rootView){
+
+        boolean valid = true;
+
+        String emailText = email.getEditText().getText().toString();
+        String passwordText = password.getEditText().toString();
+
+        if(emailText.isEmpty() ||  !Patterns.EMAIL_ADDRESS.matcher(emailText).matches()){
+            email.setError("Introduzca email válido");
+            valid = false;
+        }else{
+            email.setError(null);
+        }
+
+        if(passwordText.isEmpty() || passwordText.length() < 4 || passwordText.length() > 10){
+            password.setError("Contraseña entre 4 y 10 caracteres");
+            valid = false;
+        }
+
+        return valid;
+
+    }
+
+    public void onLoginFailed(){
+
+        Snackbar.make(getView(), "Login fallido", Snackbar.LENGTH_SHORT).show();
+
+        singup.setEnabled(true);
+    }
 
 }
