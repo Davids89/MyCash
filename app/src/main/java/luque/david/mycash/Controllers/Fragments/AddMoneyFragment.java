@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import luque.david.mycash.R;
 
@@ -51,10 +52,12 @@ public class AddMoneyFragment extends Fragment{
             public void onClick(View view) {
                 TextView cash = (TextView) rootView.findViewById(R.id.cash_textview);
 
+                ParseUser user = ParseUser.getCurrentUser();
+
                 ParseObject newcash = new ParseObject("Cash");
                 newcash.put("value", Integer.valueOf(cash.getText().toString()));
                 newcash.put("currency", "EUR");
-                newcash.put("userID", "david");
+                newcash.put("userID", String.valueOf( user.getObjectId() ));
                 newcash.put("category", categorySelected);
                 newcash.saveInBackground();
 
