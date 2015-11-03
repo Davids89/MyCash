@@ -22,6 +22,9 @@
     <string name="singup">Registrar</string>
     <string name="login">Iniciar sesión</string>
 
+    <!--FACEBOOK-->
+    <string name="facebook_app_id">1082601385112705</string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">500€</string>
     <string name="title_activity_money">MoneyActivity</string>
