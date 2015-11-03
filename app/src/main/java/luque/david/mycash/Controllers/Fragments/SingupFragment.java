@@ -62,32 +62,31 @@ public class SingupFragment extends Fragment {
 
                 ParseUser user = new ParseUser();
 
-                Log.d("DATA", email.getEditText().getText().toString() + " " + password.getEditText().getText().toString() + " " + username.getEditText().getText().toString());
-
                 user.setEmail(email.getEditText().getText().toString());
                 user.setPassword(password.getEditText().getText().toString());
                 user.setUsername(username.getEditText().getText().toString());
 
-                user.signUpInBackground(new SignUpCallback(){
-                    @Override
-                    public void done(ParseException e) {
+                if(validate()){
+                    user.signUpInBackground(new SignUpCallback(){
+                        @Override
+                        public void done(ParseException e) {
 
-                        if(e == null){
+                            if(e == null){
 
-                            if(validate(rootView)){
                                 Snackbar.make(view, "Usuario registrado con éxito",
                                         Snackbar.LENGTH_LONG).setAction("",null).show();
                                 Intent myIntent = new Intent(getActivity(), MainActivity.class);
                                 startActivity(myIntent);
                                 getActivity().finish();
+
                             }else{
-                                onLoginFailed();
+                                Log.e("ERROR",e.toString());
                             }
-                        }else{
-                            Log.e("ERROR",e.toString());
                         }
-                    }
-                });
+                    });
+                }else{
+                    onLoginFailed();
+                }
 
             }
         });
@@ -95,23 +94,32 @@ public class SingupFragment extends Fragment {
         return rootView;
     }
 
-    public boolean validate(View rootView){
+    public boolean validate(){
 
         boolean valid = true;
 
+        String usernameText = username.getEditText().getText().toString();
         String emailText = email.getEditText().getText().toString();
         String passwordText = password.getEditText().toString();
 
+        if(usernameText.isEmpty()){
+            username.setErrorEnabled(true);
+            username.setError("Debes introducir un nombre de usuario");
+        }
+
         if(emailText.isEmpty() ||  !Patterns.EMAIL_ADDRESS.matcher(emailText).matches()){
+            Log.d("EMAIL",String.valueOf(Patterns.EMAIL_ADDRESS.matcher(emailText).matches()));
             email.setError("Introduzca email válido");
             valid = false;
         }else{
-            email.setError(null);
+            email.setErrorEnabled(false);
         }
 
         if(passwordText.isEmpty() || passwordText.length() < 4 || passwordText.length() > 10){
             password.setError("Contraseña entre 4 y 10 caracteres");
             valid = false;
+        }else{
+            password.setErrorEnabled(false);
         }
 
         return valid;
@@ -120,9 +128,8 @@ public class SingupFragment extends Fragment {
 
     public void onLoginFailed(){
 
-        Snackbar.make(getView(), "Login fallido", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getView(), "Registro fallido", Snackbar.LENGTH_SHORT).show();
 
-        singup.setEnabled(true);
     }
 
 }
