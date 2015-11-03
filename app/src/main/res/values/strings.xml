@@ -15,7 +15,7 @@
     <string name="add_label_1">Añade tu dinero</string>
 
     <!--MENU-->
-    <string name="home">Home</string>
+    <string name="resumen">Resumen</string>
     <string name="operations">Operaciones</string>
     <string name="profile">Perfil</string>
 

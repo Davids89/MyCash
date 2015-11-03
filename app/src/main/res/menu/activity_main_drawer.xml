@@ -3,10 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/home"
-            android:icon="@android:drawable/ic_menu_camera"
-            android:title="@string/home" />
+            android:icon="@mipmap/ic_home"
+            android:title="@string/resumen" />
         <item android:id="@+id/operations"
-            android:icon="@android:drawable/ic_menu_gallery"
+            android:icon="@mipmap/ic_money"
             android:title="@string/operations" />
     </group>
 
