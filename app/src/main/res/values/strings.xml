@@ -17,6 +17,7 @@
     <!--MENU-->
     <string name="home">Home</string>
     <string name="operations">Operaciones</string>
+    <string name="profile">Perfil</string>
 
     <!--LOGGIN-->
     <string name="singup">Registrar</string>

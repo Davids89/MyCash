@@ -61,12 +61,31 @@ public class SingupFragment extends Fragment {
             public void onClick(final View view) {
 
                 ParseUser user = new ParseUser();
+                user.logOut();
 
                 user.setEmail(email.getEditText().getText().toString());
                 user.setPassword(password.getEditText().getText().toString());
                 user.setUsername(username.getEditText().getText().toString());
 
-                if(validate()){
+                user.signUpInBackground(new SignUpCallback() {
+                    @Override
+                    public void done(ParseException e) {
+
+                        if (e == null) {
+
+                            Snackbar.make(view, "Usuario registrado con éxito",
+                                    Snackbar.LENGTH_LONG).setAction("", null).show();
+                            Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(myIntent);
+                            getActivity().finish();
+
+                        } else {
+                            Log.e("ERROR", e.toString());
+                        }
+                    }
+                });
+
+                /*if(validate()){
                     user.signUpInBackground(new SignUpCallback(){
                         @Override
                         public void done(ParseException e) {
@@ -86,7 +105,7 @@ public class SingupFragment extends Fragment {
                     });
                 }else{
                     onLoginFailed();
-                }
+                }*/
 
             }
         });
@@ -105,6 +124,7 @@ public class SingupFragment extends Fragment {
         if(usernameText.isEmpty()){
             username.setErrorEnabled(true);
             username.setError("Debes introducir un nombre de usuario");
+            valid = false;
         }
 
         if(emailText.isEmpty() ||  !Patterns.EMAIL_ADDRESS.matcher(emailText).matches()){

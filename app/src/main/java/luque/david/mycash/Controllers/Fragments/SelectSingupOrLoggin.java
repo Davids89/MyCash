@@ -46,7 +46,9 @@ public class SelectSingupOrLoggin extends Fragment {
             @Override
             public void onClick(View view) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.container_loggin, new SingupFragment()).commit();
+                        .replace(R.id.container_loggin, new SingupFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -54,7 +56,9 @@ public class SelectSingupOrLoggin extends Fragment {
             @Override
             public void onClick(View view) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.container_loggin, new LoginFragment()).commit();
+                        .replace(R.id.container_loggin, new LoginFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
