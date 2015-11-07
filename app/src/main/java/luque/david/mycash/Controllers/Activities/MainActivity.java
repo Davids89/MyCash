@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import luque.david.mycash.Controllers.Fragments.OperationsFragment;
+import luque.david.mycash.Controllers.Fragments.ProfileFragment;
 import luque.david.mycash.Controllers.Fragments.ResumenFragment;
 import luque.david.mycash.R;
 
@@ -84,6 +85,10 @@ public class MainActivity extends AppCompatActivity
         }else if(id == R.id.operations){
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, new OperationsFragment())
+                    .addToBackStack(null).commit();
+        }else if(id == R.id.profile){
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, new ProfileFragment())
                     .addToBackStack(null).commit();
         }
 
