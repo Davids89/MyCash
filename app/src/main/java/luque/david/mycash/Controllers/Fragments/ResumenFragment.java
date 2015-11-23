@@ -98,7 +98,7 @@ public class ResumenFragment extends Fragment {
                     }
                 }
 
-                valueTextView.setText(String.valueOf(total) + "€");
+        valueTextView.setText(String.valueOf(total) + "€");
             }
         });
     }
