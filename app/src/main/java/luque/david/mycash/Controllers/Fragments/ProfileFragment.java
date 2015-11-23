@@ -1,18 +1,16 @@
 package luque.david.mycash.Controllers.Fragments;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
 import luque.david.mycash.R;
 
@@ -21,11 +19,12 @@ import luque.david.mycash.R;
  */
 public class ProfileFragment extends Fragment {
 
-    public static final String spFile = "userPrefs";
     TextView name_profile;
     TextView email_profile;
     TextView birthdate_profile;
     TextView location_profile;
+    ImageView user_avatar;
+    View rootView;
 
 
     public ProfileFragment() {
@@ -37,7 +36,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
 
@@ -45,6 +44,7 @@ public class ProfileFragment extends Fragment {
         email_profile = (TextView) rootView.findViewById(R.id.email_profile);
         birthdate_profile = (TextView) rootView.findViewById(R.id.birthdate_profile);
         location_profile = (TextView) rootView.findViewById(R.id.location_profile);
+        user_avatar = (ImageView) rootView.findViewById(R.id.user_avatar);
 
         String name = currentUser.getString("username");
         String email = currentUser.getString("email");
@@ -82,6 +82,8 @@ public class ProfileFragment extends Fragment {
             //TODO coger la localizacion por gps
             location_profile.setText("Sin localización");
         }
+
+        Picasso.with(getActivity()).load("http://www.femto.it/wp-content/uploads/2014/04/default-user-avatar.png").into(user_avatar);
     }
 
 
