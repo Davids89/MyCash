@@ -4,6 +4,7 @@ package luque.david.mycash.Controllers.Fragments;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,12 @@ import android.widget.TextView;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import io.realm.Realm;
+import luque.david.mycash.Models.Cash;
 import luque.david.mycash.R;
 
 
@@ -26,10 +33,16 @@ public class AddMoneyFragment extends Fragment{
 
     private Spinner categoriesSpinner;
     private String categorySelected;
+    Realm realm;
+    private TextView cash;
 
 
     public AddMoneyFragment() {
         // Required empty public constructor
+    }
+
+    public void iniciaRealm(){
+        realm.getInstance(getActivity());
     }
 
 
@@ -39,6 +52,8 @@ public class AddMoneyFragment extends Fragment{
         // Inflate the layout for this fragment
 
         final View rootView = inflater.inflate(R.layout.fragment_add_money, container, false);
+
+        iniciaRealm();
 
         Button addButton = (Button) rootView.findViewById(R.id.add_button);
 
@@ -50,16 +65,13 @@ public class AddMoneyFragment extends Fragment{
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView cash = (TextView) rootView.findViewById(R.id.cash_textview);
+                cash = (TextView) rootView.findViewById(R.id.cash_textview);
 
-                ParseUser user = ParseUser.getCurrentUser();
+                Cash myCash = new Cash();
 
-                ParseObject newcash = new ParseObject("Cash");
-                newcash.put("value", Integer.valueOf(cash.getText().toString()));
-                newcash.put("currency", "EUR");
-                newcash.put("userID", String.valueOf( user.getObjectId() ));
-                newcash.put("category", categorySelected);
-                newcash.saveInBackground();
+                myCash = creaValor(myCash);
+
+                guardaValor(myCash);
 
                 Snackbar.make(view, "Dinero añadido con exito", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -77,6 +89,30 @@ public class AddMoneyFragment extends Fragment{
         });
 
         return rootView;
+    }
+
+    private void guardaValor(Cash cash) {
+
+        realm.beginTransaction();
+        realm.copyToRealm(cash);
+        realm.commitTransaction();
+
+    }
+
+    public Cash creaValor (Cash myCash){
+        myCash.setmCategory(categorySelected);
+        myCash.setmCurrency("EUR");
+
+        DateFormat df = new SimpleDateFormat("dd MM yyyy, HH:mm");
+        String date = df.format(Calendar.getInstance().getTime());
+
+        myCash.setmDate(date);
+
+        myCash.setmUserID("1"); //TODO poner id de usuario
+
+        myCash.setmValue(Integer.valueOf(cash.getText().toString()));
+
+        return myCash;
     }
 
     public void SetUpSpinner(){

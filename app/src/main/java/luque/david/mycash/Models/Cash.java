@@ -2,11 +2,13 @@ package luque.david.mycash.Models;
 
 import java.util.Date;
 
+import io.realm.RealmObject;
+
 /**
  * Created by David on 24/10/15.
  */
-public class Cash {
-    private Date mDate;
+public class Cash extends RealmObject{
+    private String mDate;
     private Integer mValue;
     private String mCurrency;
     private String mSubject;
@@ -17,31 +19,51 @@ public class Cash {
 
     }
 
-    public Cash(Integer value, String currency, String category, String userID){
-        //mDate = date;
-        mValue = value;
-        mCategory = category;
-        mCurrency = currency;
-        mUserID = userID;
-    }
-
-    public Integer getValue(){
-        return mValue;
-    }
-
-    public String getCategory(){
-        return mCategory;
-    }
-
-    public Date getDate(){
+    public String getmDate() {
         return mDate;
     }
 
-    public String getCurrency(){
+    public void setmDate(String mDate) {
+        this.mDate = mDate;
+    }
+
+    public Integer getmValue() {
+        return mValue;
+    }
+
+    public void setmValue(Integer mValue) {
+        this.mValue = mValue;
+    }
+
+    public String getmCurrency() {
         return mCurrency;
     }
 
-    public String getUser(){
+    public void setmCurrency(String mCurrency) {
+        this.mCurrency = mCurrency;
+    }
+
+    public String getmSubject() {
+        return mSubject;
+    }
+
+    public void setmSubject(String mSubject) {
+        this.mSubject = mSubject;
+    }
+
+    public String getmCategory() {
+        return mCategory;
+    }
+
+    public void setmCategory(String mCategory) {
+        this.mCategory = mCategory;
+    }
+
+    public String getmUserID() {
         return mUserID;
+    }
+
+    public void setmUserID(String mUserID) {
+        this.mUserID = mUserID;
     }
 }

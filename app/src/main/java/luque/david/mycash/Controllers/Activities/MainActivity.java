@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.home) {
+        /*if (id == R.id.home) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, new ResumenFragment())
                     .addToBackStack(null).commit();
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, new ProfileFragment())
                     .addToBackStack(null).commit();
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

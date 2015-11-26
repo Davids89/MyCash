@@ -97,6 +97,7 @@
     <orderEntry type="library" exported="" name="facebook-android-sdk-4.6.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
+    <orderEntry type="library" exported="" name="realm-android-0.85.1" level="project" />
     <orderEntry type="library" exported="" name="parse-android-1.11.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-22.0.0" level="project" />

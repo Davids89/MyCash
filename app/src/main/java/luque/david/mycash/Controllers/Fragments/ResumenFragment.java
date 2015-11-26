@@ -86,21 +86,7 @@ public class ResumenFragment extends Fragment {
     }
 
     public void Resume(){
-        ParseUser user = ParseUser.getCurrentUser();
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Cash");
-        query.whereEqualTo("userID", String.valueOf( user.getObjectId() ));
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (objects != null) {
-                    for (ParseObject object : objects) {
-                        total += object.getInt("value");
-                    }
-                }
 
-        valueTextView.setText(String.valueOf(total) + "€");
-            }
-        });
     }
 
 }
