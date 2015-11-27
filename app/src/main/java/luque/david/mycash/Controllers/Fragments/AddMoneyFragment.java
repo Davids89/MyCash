@@ -108,7 +108,9 @@ public class AddMoneyFragment extends Fragment{
 
         myCash.setmDate(date);
 
-        myCash.setmUserID("1"); //TODO poner id de usuario
+        ParseUser user = ParseUser.getCurrentUser();
+
+        myCash.setmUserID(String.valueOf(user.getObjectId())); //TODO poner id de usuario
 
         myCash.setmValue(Integer.valueOf(cash.getText().toString()));
 
@@ -138,6 +140,13 @@ public class AddMoneyFragment extends Fragment{
 
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        realm.close();
     }
 
 }

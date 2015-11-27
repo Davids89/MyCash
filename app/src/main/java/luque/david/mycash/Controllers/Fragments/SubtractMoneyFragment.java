@@ -16,7 +16,13 @@ import android.widget.TextView;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import io.realm.Realm;
 import luque.david.mycash.Controllers.Fragments.ResumenFragment;
+import luque.david.mycash.Models.Cash;
 import luque.david.mycash.R;
 
 
@@ -27,12 +33,17 @@ public class SubtractMoneyFragment extends Fragment {
 
     private Spinner spinner;
     private String categorySelected;
+    private Realm realm;
+    private TextView cash;
 
 
     public SubtractMoneyFragment() {
         // Required empty public constructor
     }
 
+    public void iniciaRealm(){
+        realm.getInstance(getActivity());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +52,8 @@ public class SubtractMoneyFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_subtract_money, container, false);
 
         Button button = (Button) rootView.findViewById(R.id.subtract_button);
+
+        iniciaRealm();
 
         //Spinner
 
@@ -51,19 +64,14 @@ public class SubtractMoneyFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView text = (TextView) rootView.findViewById(R.id.cash_subtract_textview);
-                ParseUser user = ParseUser.getCurrentUser();
+                cash = (TextView) rootView.findViewById(R.id.cash_subtract_textview);
+                Cash myCash = new Cash();
 
-                Integer value = Integer.valueOf(text.getText().toString()) * -1;
+                myCash = creaValor(myCash);
 
-                ParseObject newcash = new ParseObject("Cash");
-                newcash.put("value", value);
-                newcash.put("currency", "EUR");
-                newcash.put("userID", String.valueOf( user.getObjectId() ));
-                newcash.put("category", categorySelected);
-                newcash.saveInBackground();
+                guardaValor(myCash);
 
-                Snackbar.make(view, "Dinero restado con exito", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Restado añadido con exito", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
                 new android.os.Handler().postDelayed(
@@ -78,6 +86,32 @@ public class SubtractMoneyFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void guardaValor(Cash cash) {
+
+        realm.beginTransaction();
+        realm.copyToRealm(cash);
+        realm.commitTransaction();
+
+    }
+
+    public Cash creaValor (Cash myCash){
+        myCash.setmCategory(categorySelected);
+        myCash.setmCurrency("EUR");
+
+        DateFormat df = new SimpleDateFormat("dd MM yyyy, HH:mm");
+        String date = df.format(Calendar.getInstance().getTime());
+
+        myCash.setmDate(date);
+
+        ParseUser user = ParseUser.getCurrentUser();
+
+        myCash.setmUserID(String.valueOf(user.getObjectId())); //TODO poner id de usuario
+
+        myCash.setmValue(Integer.valueOf(cash.getText().toString()) * -1);
+
+        return myCash;
     }
 
     public void SetUpSpinner(){
@@ -106,5 +140,10 @@ public class SubtractMoneyFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
+        realm.close();
+    }
 }

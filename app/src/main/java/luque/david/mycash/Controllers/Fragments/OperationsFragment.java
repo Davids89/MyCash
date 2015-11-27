@@ -81,7 +81,7 @@ public class OperationsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                categorySelected = categoriesSpinner.getSelectedItem().toString();
+               /* categorySelected = categoriesSpinner.getSelectedItem().toString();
 
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Cash");
                 query.setLimit(10);
@@ -112,7 +112,7 @@ public class OperationsFragment extends Fragment {
 
                         }
                     }
-                });
+                });*/
 
             }
 

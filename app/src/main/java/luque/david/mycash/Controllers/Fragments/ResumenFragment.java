@@ -4,6 +4,7 @@ package luque.david.mycash.Controllers.Fragments;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,10 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import luque.david.mycash.Controllers.Activities.MainActivity;
+import luque.david.mycash.Models.Cash;
 import luque.david.mycash.R;
 
 
@@ -31,7 +36,7 @@ public class ResumenFragment extends Fragment {
     TextView valueTextView;
     ArrayList<String> Categories = new ArrayList<String>();
     Bundle args = new Bundle();
-
+    Realm realm;
 
     public ResumenFragment() {
         // Required empty public constructor
@@ -87,6 +92,21 @@ public class ResumenFragment extends Fragment {
 
     public void Resume(){
 
+        realm = ((MainActivity)getActivity()).getRealm();
+
+        RealmQuery<Cash> query = realm.where(Cash.class);
+
+        query.findAll();
+
+        Log.wtf("CASH", query.toString());
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        realm.close();
     }
 
 }

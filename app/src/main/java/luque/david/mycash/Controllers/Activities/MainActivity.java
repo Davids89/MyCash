@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import io.realm.Realm;
 import luque.david.mycash.Controllers.Fragments.OperationsFragment;
 import luque.david.mycash.Controllers.Fragments.ProfileFragment;
 import luque.david.mycash.Controllers.Fragments.ResumenFragment;
@@ -17,6 +18,8 @@ import luque.david.mycash.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //init Realm
+        realm.getInstance(this);
     }
 
     @Override
@@ -95,5 +101,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public Realm getRealm(){
+        return realm;
     }
 }
