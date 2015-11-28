@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //init Realm
-        realm.getInstance(this);
+        realm = Realm.getInstance(this);
     }
 
     @Override
@@ -105,5 +105,12 @@ public class MainActivity extends AppCompatActivity
 
     public Realm getRealm(){
         return realm;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        realm.close();
     }
 }
