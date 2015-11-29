@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.w3c.dom.Text;
+
 import luque.david.mycash.R;
 
 
@@ -26,6 +28,7 @@ public class AddMoneyFragment extends Fragment{
 
     private Spinner categoriesSpinner;
     private String categorySelected;
+    private TextView subject;
 
 
     public AddMoneyFragment() {
@@ -44,6 +47,7 @@ public class AddMoneyFragment extends Fragment{
 
         //spinner
         categoriesSpinner = (Spinner) rootView.findViewById(R.id.categories_spinner);
+        subject = (TextView) rootView.findViewById(R.id.subject);
 
         SetUpSpinner();
 
@@ -57,7 +61,8 @@ public class AddMoneyFragment extends Fragment{
                 ParseObject newcash = new ParseObject("Cash");
                 newcash.put("value", Integer.valueOf(cash.getText().toString()));
                 newcash.put("currency", "EUR");
-                newcash.put("userID", String.valueOf( user.getObjectId() ));
+                newcash.put("subject", subject.getText().toString());
+                newcash.put("userID", String.valueOf(user.getObjectId()));
                 newcash.put("category", categorySelected);
                 newcash.saveInBackground();
 

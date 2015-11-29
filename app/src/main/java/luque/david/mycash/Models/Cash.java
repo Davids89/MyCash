@@ -17,31 +17,52 @@ public class Cash {
 
     }
 
-    public Cash(Integer value, String currency, String category, String userID){
+    public Cash(Integer value, String currency, String category, String userID, String subject){
         //mDate = date;
         mValue = value;
         mCategory = category;
         mCurrency = currency;
         mUserID = userID;
+        mSubject = subject;
     }
 
-    public Integer getValue(){
+    public Integer getmValue() {
         return mValue;
     }
 
-    public String getCategory(){
-        return mCategory;
+    public void setmValue(Integer mValue) {
+        this.mValue = mValue;
     }
 
-    public Date getDate(){
-        return mDate;
-    }
-
-    public String getCurrency(){
+    public String getmCurrency() {
         return mCurrency;
     }
 
-    public String getUser(){
+    public void setmCurrency(String mCurrency) {
+        this.mCurrency = mCurrency;
+    }
+
+    public String getmSubject() {
+        return mSubject;
+    }
+
+    public void setmSubject(String mSubject) {
+        this.mSubject = mSubject;
+    }
+
+    public String getmCategory() {
+        return mCategory;
+    }
+
+    public void setmCategory(String mCategory) {
+        this.mCategory = mCategory;
+    }
+
+    public String getmUserID() {
         return mUserID;
+    }
+
+    public void setmUserID(String mUserID) {
+        this.mUserID = mUserID;
     }
 }

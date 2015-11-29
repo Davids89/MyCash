@@ -100,7 +100,8 @@ public class OperationsFragment extends Fragment {
                                 items.add(new Cash(object.getInt("value"),
                                         object.getString("currency"),
                                         object.getString("category"),
-                                        object.getString("userID")));
+                                        object.getString("userID"),
+                                        object.getString("subject")));
                             }
 
                             Log.d("ITEMS", String.valueOf(items.size()));
