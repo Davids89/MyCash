@@ -22,6 +22,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
+import io.realm.RealmResults;
 import luque.david.mycash.Controllers.Activities.MainActivity;
 import luque.david.mycash.Models.Cash;
 import luque.david.mycash.R;
@@ -96,9 +97,17 @@ public class ResumenFragment extends Fragment {
 
         RealmQuery<Cash> query = realm.where(Cash.class);
 
-        query.findAll();
+        RealmResults<Cash> cashs = query.findAll();
 
-        Log.wtf("CASH", query.toString());
+        Integer valor = 0;
+
+        for(Cash cash : cashs){
+
+            valor += cash.getmValue();
+
+        }
+
+        valueTextView.setText(valor.toString() + " €");
 
     }
 

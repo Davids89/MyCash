@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import io.realm.Realm;
+import luque.david.mycash.Controllers.Activities.MainActivity;
 import luque.david.mycash.Controllers.Fragments.ResumenFragment;
 import luque.david.mycash.Models.Cash;
 import luque.david.mycash.R;
@@ -42,7 +43,7 @@ public class SubtractMoneyFragment extends Fragment {
     }
 
     public void iniciaRealm(){
-        realm.getInstance(getActivity());
+        realm = ((MainActivity)getActivity()).getRealm();
     }
 
     @Override
