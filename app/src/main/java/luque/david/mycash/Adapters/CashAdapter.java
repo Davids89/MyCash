@@ -22,6 +22,7 @@ public class CashAdapter extends RecyclerView.Adapter<CashAdapter.CashAdapterHol
 
     public static class CashAdapterHolder extends RecyclerView.ViewHolder{
 
+        private final TextView subject;
         public TextView value;
         public ImageView image;
 
@@ -29,6 +30,7 @@ public class CashAdapter extends RecyclerView.Adapter<CashAdapter.CashAdapterHol
             super(v);
             value = (TextView) v.findViewById(R.id.valueCard);
             image = (ImageView) v.findViewById(R.id.imageCard);
+            subject = (TextView) v.findViewById(R.id.subject_card);
         }
     }
 
@@ -52,9 +54,9 @@ public class CashAdapter extends RecyclerView.Adapter<CashAdapter.CashAdapterHol
     @Override
     public void onBindViewHolder(CashAdapter.CashAdapterHolder holder, int position) {
 
-        if(mList.get(position).getValue() != null){
+        if(mList.get(position).getmValue() != null){
 
-            String category = mList.get(position).getCategory();
+            String category = mList.get(position).getmCategory();
 
             if(category.equals("Ropa")){
                 holder.image.setImageResource(R.mipmap.ic_clothes);
@@ -76,13 +78,15 @@ public class CashAdapter extends RecyclerView.Adapter<CashAdapter.CashAdapterHol
                 holder.image.setImageResource(R.mipmap.ic_gift);
             }
 
-            if(mList.get(position).getValue() > 0){
+            if(mList.get(position).getmValue() > 0){
                 holder.value.setTextColor(Color.parseColor("#43A047"));
-            }else if(mList.get(position).getValue() < 0){
+            }else if(mList.get(position).getmValue() < 0){
                 holder.value.setTextColor(Color.parseColor("#D32F2F"));
             }
 
-            holder.value.setText(mList.get(position).getValue().toString());
+            holder.value.setText(mList.get(position).getmValue().toString());
+
+            holder.subject.setText(mList.get(position).getmSubject());
         }else{
             holder.image.setImageResource(R.mipmap.ic_error);
             holder.value.setText("No hay resultados");
