@@ -18,6 +18,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +86,7 @@ public class OperationsFragment extends Fragment {
 
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Cash");
                 query.setLimit(10);
-                query.whereEqualTo("userID", "david");
+                query.whereEqualTo("userID", ParseUser.getCurrentUser().getObjectId());
                 query.whereEqualTo("category", categorySelected);
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
